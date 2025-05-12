@@ -1,1 +1,0 @@
-bool addPointToCard(int totalAmount);
