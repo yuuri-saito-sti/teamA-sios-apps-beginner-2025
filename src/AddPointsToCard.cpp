@@ -8,10 +8,10 @@ bool addPointToCard(int totalAmount)
     std::cin >> hasCard;
     if (hasCard == 'y')
     {
+        std::cout << "ポイントカードを確認しました。" << std::endl;
     }
     else if (hasCard == 'n')
     {
-        std::cout << "ポイントカードはお持ちでないようですね。" << std::endl;
         std::cout << "ポイントカードを作成しますか？(y/n)" << std::endl;
         char willCreateCard;
         std::cin >> willCreateCard;
@@ -22,7 +22,8 @@ bool addPointToCard(int totalAmount)
             std::cout << "名前を入力してください" << std::endl;
             std::string name;
             std::cin >> name;
-            std::cout << "電話番号を入力してください" << std::endl;
+            std::cout << "電話番号を入力してください（半角のみ・ハイフンを除く）" << std::endl;
+            // TODO:ハイフンあってもなくても読めるようにしたい
             std::string phoneNumber;
             std::cin >> phoneNumber;
             std::cout << "ポイントカードを作成しました。" << std::endl;
