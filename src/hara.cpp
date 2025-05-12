@@ -1,4 +1,4 @@
-#include <iostream>
+#include <iostream>　// C++ standard library
 #include <vector>
 #include <string>      
 #include <algorithm>   
@@ -182,7 +182,7 @@ int main() {
     int totalAmount = CalculateTotalAmount(items);
 
     std::wcout << L"\nご注文ありがとうございました！" << std::endl;
-    std::wcout << L"最終合計金額は " << totalAmount << L" 円です" << std::endl;
+    std::wcout << L"最終合計金額は " << totalAmount << L" 円です。" << std::endl;
 
     return 0;
 }
