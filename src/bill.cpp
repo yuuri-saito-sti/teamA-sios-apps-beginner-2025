@@ -6,7 +6,7 @@
 #include <locale>
 #include <sstream>
 
-// 商品構造体
+
 struct Item {
     std::wstring name;
     int price;
@@ -16,7 +16,7 @@ struct Item {
         : name(name_val), price(price_val), stock(stock_val) {}
 };
 
-// 全角数字を半角数字に変換する関数
+
 std::wstring ConvertToHalfWidth(const std::wstring& input) {
     std::wstring result = input;
     for (wchar_t& wc : result) {
@@ -27,7 +27,7 @@ std::wstring ConvertToHalfWidth(const std::wstring& input) {
     return result;
 }
 
-// 入力をトリムする関数
+// 文字列の前後の空白を削除する関数
 std::wstring Trim(const std::wstring& str) {
     const std::wstring WHITESPACE = L" \t";
     size_t first = str.find_first_not_of(WHITESPACE);
@@ -38,12 +38,12 @@ std::wstring Trim(const std::wstring& str) {
     return str.substr(first, last - first + 1);
 }
 
-// 合計金額を計算する関数
+
 int CalculateTotalAmount(std::vector<Item>& items) {
     int totalAmount = 0;
 
     while (true) {
-        // 商品一覧の表示
+        
         std::wcout << L"\n注文可能な商品一覧:" << std::endl;
         std::wcout << std::left << std::setw(6) << L"番号"
                    << std::setw(14) << L"商品名"
@@ -60,7 +60,7 @@ int CalculateTotalAmount(std::vector<Item>& items) {
         }
         std::wcout << L"-------------------------------------------------------" << std::endl;
 
-        // 商品番号の入力
+        
         std::wcout << L"\n注文する商品の番号を入力してください: ";
         std::wstring inputNumberStr;
         std::getline(std::wcin, inputNumberStr);
@@ -90,7 +90,7 @@ int CalculateTotalAmount(std::vector<Item>& items) {
             continue;
         }
 
-        // 注文数の入力
+        
         std::wcout << L"注文数を入力してください（全角数字も可）: ";
         std::wstring inputQuantityStr;
         std::getline(std::wcin, inputQuantityStr);
@@ -121,10 +121,10 @@ int CalculateTotalAmount(std::vector<Item>& items) {
             continue;
         }
 
-        // 在庫を更新
+        
         items[itemIndex].stock -= quantity;
 
-        // 合計金額の計算
+        
         int amount = items[itemIndex].price * quantity;
         totalAmount += amount;
 
@@ -132,7 +132,7 @@ int CalculateTotalAmount(std::vector<Item>& items) {
         std::wcout << L"小計: " << amount << L"円" << std::endl;
         std::wcout << L"現在の合計金額: " << totalAmount << L"円" << std::endl;
 
-        // 他に注文があるか確認
+        
         std::wcout << L"\n他に注文はありますか？（y/n）: ";
         std::wstring response;
         std::getline(std::wcin, response);
@@ -142,17 +142,22 @@ int CalculateTotalAmount(std::vector<Item>& items) {
         std::transform(lower_response.begin(), lower_response.end(), lower_response.begin(),
                        std::towlower);
 
-        if (response != L"yes" && response != L"no" &&
-            lower_response != L"ｙｅｓ" && lower_response != L"ｎｏ" &&
-            lower_response != L"y" && lower_response != L"n" &&
-            lower_response != L"ｙ" && lower_response != L"ｎ") {
-            std::wcout << L"無効な入力です。「ｙ」または「ｎ」を入力してください。" << std::endl;
-            continue;
+        bool IsYesResponse(const std::wstring& response) {
+        std::wstring lower_response = response;
+        std::transform(lower_response.begin(), lower_response.end(), lower_response.begin(), std::towlower);
+
+            return (lower_response == L"yes" || lower_response == L"ｙｅｓ" ||
+            lower_response == L"y" || lower_response == L"ｙ");
         }
 
-        if (response == L"no" || lower_response == L"ｎｏ" || lower_response == L"n" || lower_response == L"ｎ") {
-            break;
+        bool IsNoResponse(const std::wstring& response) {
+        std::wstring lower_response = response;
+        std::transform(lower_response.begin(), lower_response.end(), lower_response.begin(), std::towlower);
+
+            return (lower_response == L"no" || lower_response == L"ｎｏ" ||
+                    lower_response == L"n" || lower_response == L"ｎ");
         }
+        
     }
     return totalAmount;
 }
