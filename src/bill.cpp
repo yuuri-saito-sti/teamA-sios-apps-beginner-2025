@@ -1,29 +1,54 @@
 #include <iostream>
-#include <vector>
-#include <string>
+#include"AddPointsToCard.h"
 
-struct Item {
-    std::string name;
-    int price;
-    int stock;
-
-    Item(std::string name, int price, int stock) {
-        this->name = name;
-        this->price = price;
-        this->stock = stock;
+bool addPointToCard(int totalAmount)
+{
+    std::cout << "ポイントカードはお持ちですか？(y/n)" << std::endl;
+    char hasCard;
+    std::cin >> hasCard;
+    if (hasCard == 'y')
+    {
+        std::cout << "ポイントカードを確認しました。" << std::endl;
     }
-};
+    else if (hasCard == 'n')
+    {
+        std::cout << "ポイントカードを作成しますか？(y/n)" << std::endl;
+        char willCreateCard;
+        std::cin >> willCreateCard;
 
-int main() {
-    std::vector<Item> items = {
-        {"りんご", 100, 10},
-        {"バナナ", 80, 20},
-        {"みかん", 50, 15},
-        {"お肉", 500, 5},
-        {"牛乳", 300, 25},
-        {"魚", 400, 30}
-    };
-    std::cout << "お会計システム作成" << std::endl;
-
-    return 0;
+        if (willCreateCard == 'y')
+        {
+            std::cout << "ポイントカードを作成します" << std::endl;
+            std::cout << "名前を入力してください" << std::endl;
+            std::string name;
+            std::cin >> name;
+            std::cout << "電話番号を入力してください（半角のみ・ハイフンを除く）" << std::endl;
+            // TODO:ハイフンあってもなくても読めるようにしたい
+            std::string phoneNumber;
+            std::cin >> phoneNumber;
+            std::cout << "ポイントカードを作成しました。" << std::endl;
+        }
+        else if (willCreateCard == 'n')
+        {
+            std::cout << "ポイントカードは作成しませんでした。" << std::endl;
+            return true;
+        }
+        else
+        {
+            std::cout << "不正な入力です。" << std::endl;
+            return false;
+        }
+    }
+    else
+    {
+        std::cout << "不正な入力です。" << std::endl;
+        return false;
+    }
+    std::cout << "ポイントを"<<totalAmount * 0.01 <<"ポイント付与しました。" << std::endl;
+    return true;
 }
+
+int main()
+{
+    addPointToCard(1000);
+}   
